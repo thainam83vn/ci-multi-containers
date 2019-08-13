@@ -9,11 +9,11 @@ script:
   - docker run thainam83vn/multi-container-client-test npm test -- --coverage
 
 after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker build -t thainam83vn/multi-container-client ./client
   - docker build -t thainam83vn/multi-container-nginx ./nginx
   - docker build -t thainam83vn/multi-container-server ./server
   - docker build -t thainam83vn/multi-container-worker ./worker
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push thainam83vn/multi-container-client
   - docker push thainam83vn/multi-container-nginx
   - docker push thainam83vn/multi-container-server
