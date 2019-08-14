@@ -1,0 +1,36 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "thainam83vn/multi-container-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "thainam83vn/multi-container-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "thainam83vn/multi-container-worker",
+      "hostname": "worker",
+      "essential": true
+    },
+    {
+      "name": "nginx",
+      "image": "thainam83vn/multi-container-nginx",
+      "hostname": "nginx",
+      "essential": "true",
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
+    }
+  ]
+}
